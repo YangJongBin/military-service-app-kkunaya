@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Provider} from 'react-redux';
 
-import Page from './src/containers/Home';
+import Page from './src/containers/Navi';
 import store from './src/store';
 
 const App = () => {
