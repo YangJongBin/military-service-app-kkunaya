@@ -1,13 +1,6 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  TextInput,
-  Button,
-} from 'react-native';
-import {ThemeProvider} from 'react-native-elements';
+import {StyleSheet, Text, View, KeyboardAvoidingView} from 'react-native';
+import {ThemeProvider, Input, Button} from 'react-native-elements';
 
 interface Props {}
 interface Theme {
@@ -26,9 +19,9 @@ export default function Login(props: Props) {
   return (
     <ThemeProvider theme={theme}>
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-        <TextInput placeholder="ID" style={styles.textInput}></TextInput>
-        <TextInput placeholder="PW" style={styles.textInput}></TextInput>
-        <Button title="Sign In" loading={false} style={styles.button} />
+        <Input placeholder="ID" style={styles.input}></Input>
+        <Input placeholder="PW" style={styles.input}></Input>
+        <Button title="Sign In" style={styles.button} />
       </KeyboardAvoidingView>
     </ThemeProvider>
   );
@@ -45,9 +38,5 @@ const styles = StyleSheet.create({
   button: {
     width: 100,
   },
-  textInput: {
-    width: '100%',
-    height: 30,
-    backgroundColor: 'gray',
-  },
+  input: {},
 });
