@@ -1,6 +1,15 @@
 import React from 'react';
-import {StyleSheet, Text, View, Dimensions, Button, Alert} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Button,
+  Alert,
+  SafeAreaView,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
+// import {} from 'react-native-elements';
 
 // action
 import {getInit} from '../modules/init';
@@ -13,14 +22,14 @@ function Home(props: Props) {
   const dispatch = useDispatch();
 
   return (
-    <View style={[styles.container, {marginTop: 100}]}>
+    <SafeAreaView style={styles.container}>
       <Text>{initValue}</Text>
       <Button
         title={'REDUX'}
         onPress={() => {
           dispatch(getInit('Success'));
         }}></Button>
-    </View>
+    </SafeAreaView>
   );
 }
 
