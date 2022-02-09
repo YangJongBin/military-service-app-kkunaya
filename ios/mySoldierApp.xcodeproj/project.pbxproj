@@ -487,6 +487,7 @@
 				DEVELOPMENT_TEAM = GA2X6HDTJX;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = mySoldierApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -513,6 +514,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GA2X6HDTJX;
 				INFOPLIST_FILE = mySoldierApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

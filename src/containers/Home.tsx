@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View, Dimensions, SafeAreaView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {TabView, ButtonGroup} from 'react-native-elements';
+import {GLView} from 'expo-gl';
 
 // action
 import {getInit} from '../modules/init';
@@ -29,6 +30,8 @@ export default function Home(props: Props) {
       element: () => <Text>4</Text>,
     },
   ];
+
+  const onContextCreate = gl => {};
 
   return (
     <SafeAreaView style={styles.container}>
