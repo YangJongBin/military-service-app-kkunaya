@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View, Dimensions, SafeAreaView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {TabView, ButtonGroup} from 'react-native-elements';
-import {GLView} from 'expo-gl';
 
 // action
 import {getInit} from '../modules/init';
+
+import SoldierThree from '../components/SoldierThree.tsx';
 
 interface Props {}
 
@@ -31,8 +32,6 @@ export default function Home(props: Props) {
     },
   ];
 
-  const onContextCreate = gl => {};
-
   return (
     <SafeAreaView style={styles.container}>
       {/* TODO: custom header */}
@@ -47,7 +46,9 @@ export default function Home(props: Props) {
         </View>
         <View style={styles.publicContentView}>
           <View style={{flex: 1, borderWidth: 1}}></View>
-          <View style={{flex: 2, borderWidth: 1}}></View>
+          <View style={{flex: 2, borderWidth: 1}}>
+            <SoldierThree></SoldierThree>
+          </View>
           <View style={{flex: 1, borderWidth: 1}}></View>
         </View>
       </View>
