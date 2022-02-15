@@ -4,68 +4,74 @@ import {GLView} from 'expo-gl';
 import ExpoThree, {THREE} from 'expo-three';
 
 const SoldierThree = () => {
-  // TODO: three dfeault typescript
-  this.scene;
-  this.camera;
-  this.renderer;
-  this.gl;
+    interface ThreeObj {
+        scene: any;
+        camera: any;
+        renderer: any;
+        geometry: any;
+        material: any;
+        gl: any;
+    }
 
-  const that = this;
+    const three: ThreeObj={
+      scene: new THREE.Scene(),
+      camera: new THREE.PerspectiveCamera(),
+      geometry: null,
+      material: null,
+      gl: null,
+      renderer: null
+    };
 
-  const onContextCreate = gl => {
-    that.gl = gl;
-    // that.gl.canvas = {'100%', '100%'}
-    that.scene = new THREE.Scene();
-    that.camera = new THREE.PerspectiveCamera();
+    const onContextCreate = gl => {
+      three.gl = gl;
+      // that.gl.canvas = {'100%', '100%'}
 
-    gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-    gl.clearColor(0, 1, 1, 1);
+      three.gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+      three.gl.clearColor(0, 1, 1, 1);
 
-    // Create vertex shader (shape & position)
-    const vert = gl.createShader(gl.VERTEX_SHADER);
-    gl.shaderSource(
-      vert,
-      `
+      // Create vertex shader (shape & position)
+      const vert = three.gl.createShader(gl.VERTEX_SHADER);
+      three.gl.shaderSource(vert, `
       void main(void) {
         gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
         gl_PointSize = 150.0;
       }
-    `,
-    );
-    gl.compileShader(vert);
+    `,);
+      three.gl.compileShader(vert);
 
-    // Create fragment shader (color)
-    const frag = gl.createShader(gl.FRAGMENT_SHADER);
-    gl.shaderSource(
-      frag,
-      `
+      // Create fragment shader (color)
+      const frag = three.gl.createShader(gl.FRAGMENT_SHADER);
+      three.gl.shaderSource(frag, `
       void main(void) {
         gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
       }
-    `,
+    `,);
+      three.gl.compileShader(frag);
+
+      // Link together into a program
+      const program = three.gl.createProgram();
+      three.gl.attachShader(program, vert);
+      three.gl.attachShader(program, frag);
+      three.gl.linkProgram(program);
+      three.gl.useProgram(program);
+
+      three.gl.clear(three.gl.COLOR_BUFFER_BIT);
+      three.gl.drawArrays(three.gl.POINTS, 0, 1);
+
+      three.gl.flush();
+      three.gl.endFrameEXP();
+    };
+
+    return (
+      <GLView style={
+        {
+          width: '100%',
+          height: '100%'
+        }
+      }
+      onContextCreate={onContextCreate}/>
     );
-    gl.compileShader(frag);
-
-    // Link together into a program
-    const program = gl.createProgram();
-    gl.attachShader(program, vert);
-    gl.attachShader(program, frag);
-    gl.linkProgram(program);
-    gl.useProgram(program);
-
-    gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.drawArrays(gl.POINTS, 0, 1);
-
-    gl.flush();
-    gl.endFrameEXP();
-  };
-
-  return (
-    <GLView
-      style={{width: '100%', height: '100%'}}
-      onContextCreate={onContextCreate}
-    />
-  );
 };
 
 export default SoldierThree;
+
