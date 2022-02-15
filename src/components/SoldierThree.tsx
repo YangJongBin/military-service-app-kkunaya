@@ -4,61 +4,68 @@ import {GLView} from 'expo-gl';
 import ExpoThree, {THREE} from 'expo-three';
 
 const SoldierThree = () => {
+
     interface ThreeObj {
         scene: any;
         camera: any;
         renderer: any;
         geometry: any;
         material: any;
+        ambientLight: any;
+        pointLight: any;
+        cube: any;
         gl: any;
     }
 
+    // FIXME: 새로운 구분이 필요함, 가변적인 함수는 빼는 것이 좋은가?
     const three: ThreeObj={
       scene: new THREE.Scene(),
-      camera: new THREE.PerspectiveCamera(),
-      geometry: null,
-      material: null,
+      camera: null,
+      geometry: new THREE.BoxGeometry(1,1,1),
+      material: new THREE.MeshPhongMaterial({
+        color: 0x555555
+      }),
+      ambientLight: new THREE.AmbientLight(0x4000ff),
+      pointLight: new THREE.PointLight(0xffffff, 6, 40),
       gl: null,
+      cube: null,
       renderer: null
     };
 
     const onContextCreate = gl => {
+      THREE.suppressExpoWarnings();
+
       three.gl = gl;
-      // that.gl.canvas = {'100%', '100%'}
+      three.gl.canvas = {
+        width: '100%',
+        height: '100%'
+      };
 
-      three.gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-      three.gl.clearColor(0, 1, 1, 1);
+      three.camera= new THREE.OrthographicCamera(-3*(gl.drawingBufferWidth / gl.drawingBufferHeight), 3*(gl.drawingBufferWidth / gl.drawingBufferHeight), 3, -3, 1, 1000);
+      three.camera.position.set(5,5,5);
+      three.camera.lookAt(three.scene.position);
 
-      // Create vertex shader (shape & position)
-      const vert = three.gl.createShader(gl.VERTEX_SHADER);
-      three.gl.shaderSource(vert, `
-      void main(void) {
-        gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
-        gl_PointSize = 150.0;
-      }
-    `,);
-      three.gl.compileShader(vert);
+      three.cube = new THREE.Mesh(three.geometry, three.material);
 
-      // Create fragment shader (color)
-      const frag = three.gl.createShader(gl.FRAGMENT_SHADER);
-      three.gl.shaderSource(frag, `
-      void main(void) {
-        gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-      }
-    `,);
-      three.gl.compileShader(frag);
+      three.pointLight.position.set(10, 20, 15);
+      three.scene.add(three.pointLight);
 
-      // Link together into a program
-      const program = three.gl.createProgram();
-      three.gl.attachShader(program, vert);
-      three.gl.attachShader(program, frag);
-      three.gl.linkProgram(program);
-      three.gl.useProgram(program);
+      // FIXME: Helpler
+      three.scene.add(new THREE.GridHelper(10,10));
 
-      three.gl.clear(three.gl.COLOR_BUFFER_BIT);
-      three.gl.drawArrays(three.gl.POINTS, 0, 1);
+      three.scene.add(three.ambientLight);
+      three.scene.add(three.cube);
 
-      three.gl.flush();
+      three.renderer = new ExpoThree.Renderer({
+        gl, 
+        pixelRatio: gl.scale, 
+        width: gl.drawingBufferWidth,
+        height: gl.drawingBufferHeight
+      });
+      three.renderer.setClearColor(0xffffff, 0);
+      three.renderer.setSize(gl.drawingBufferWidth, gl.drawingBufferHeight);
+      three.renderer.render(three.scene, three.camera);
+
       three.gl.endFrameEXP();
     };
 
@@ -66,7 +73,8 @@ const SoldierThree = () => {
       <GLView style={
         {
           width: '100%',
-          height: '100%'
+          height: '100%',
+          backgroundColor: 'white'
         }
       }
       onContextCreate={onContextCreate}/>

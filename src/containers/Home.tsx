@@ -69,7 +69,7 @@ export default function Home(props : Props) {
           <View style={
             {
               flex: 2,
-              borderWidth: 1
+              borderWidth: 1,
             }
           }>
             <SoldierThree></SoldierThree>
