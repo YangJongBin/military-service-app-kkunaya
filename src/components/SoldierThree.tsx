@@ -4,7 +4,6 @@ import {GLView} from 'expo-gl';
 import ExpoThree, {THREE} from 'expo-three';
 
 const SoldierThree = () => {
-
     interface ThreeObj {
         scene: any;
         camera: any;
@@ -41,7 +40,7 @@ const SoldierThree = () => {
         height: '100%'
       };
 
-      three.camera= new THREE.OrthographicCamera(-3*(gl.drawingBufferWidth / gl.drawingBufferHeight), 3*(gl.drawingBufferWidth / gl.drawingBufferHeight), 3, -3, 1, 1000);
+      three.camera= new THREE.OrthographicCamera(-3*(gl.drawingBufferWidth / gl.drawingBufferHeight), 3*(gl.drawingBufferWidth / gl.drawingBufferHeight), 3, -3, 1, 400);
       three.camera.position.set(5,5,5);
       three.camera.lookAt(three.scene.position);
 

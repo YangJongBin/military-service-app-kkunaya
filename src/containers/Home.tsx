@@ -12,7 +12,9 @@ import {TabView, ButtonGroup} from 'react-native-elements';
 // action
 import {getInit} from '../modules/init';
 
+// components
 import SoldierThree from '../components/SoldierThree';
+import MyHeader from '../components/MyHeader';
 
 interface Props {}
 
@@ -39,14 +41,7 @@ export default function Home(props : Props) {
     <SafeAreaView style={
       styles.container
     }>
-      {/* TODO: custom header */}
-      <View style={
-        {
-          width: '100%',
-          height: 50,
-          backgroundColor: 'yellow'
-        }
-      }></View>
+      <MyHeader />
       <View style={
         styles.publicView
       }>
@@ -120,9 +115,7 @@ export default function Home(props : Props) {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'white'
+    flex:1
   },
   publicView: {
     flex: 2,
