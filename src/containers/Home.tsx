@@ -15,6 +15,10 @@ import {getInit} from '../modules/init';
 // components
 import SoldierThree from '../components/SoldierThree';
 import MyHeader from '../components/MyHeader';
+import DetailComponent from '../components/DetailComponent';
+import TimetableComponent from '../components/TimetableComponent';
+import CalendarComponent from '../components/CalendarComponent';
+import SettingComponent from '../components/SettingComponent';
 
 interface Props {}
 
@@ -55,12 +59,12 @@ export default function Home(props : Props) {
         <View style={
           styles.publicContentView
         }>
-          <View style={
-            {
-              flex: 1,
-              borderWidth: 1
-            }
-          }></View>
+          {/* Left */}
+          <View style={styles.publicContentSideView}>
+            <View style={[styles.card, { width: 50, height: 50 }]}></View>
+            <View style={[styles.card, { flex: 1 }]}></View>
+          </View>
+          {/* Center */}
           <View style={
             {
               flex: 2,
@@ -69,12 +73,8 @@ export default function Home(props : Props) {
           }>
             <SoldierThree></SoldierThree>
           </View>
-          <View style={
-            {
-              flex: 1,
-              borderWidth: 1
-            }
-          }></View>
+          {/* Right */}
+          <View style={styles.publicContentSideView}></View>
         </View>
       </View>
       <View style={
@@ -83,30 +83,18 @@ export default function Home(props : Props) {
         {/* FIXME: component 작업 해야함. */}
         <TabView value={tabIndex}
           onChange={setTabIndex}>
-          <TabView.Item style={
-            {
-              width: '100%',
-              backgroundColor: 'red'
-            }
-          }></TabView.Item>
-          <TabView.Item style={
-            {
-              width: '100%',
-              backgroundColor: 'blue'
-            }
-          }></TabView.Item>
-          <TabView.Item style={
-            {
-              width: '100%',
-              backgroundColor: 'green'
-            }
-          }></TabView.Item>
-          <TabView.Item style={
-            {
-              width: '100%',
-              backgroundColor: 'purple'
-            }
-          }></TabView.Item>
+          <TabView.Item style={styles.tabViewItem}>
+            <DetailComponent/>
+          </TabView.Item>
+          <TabView.Item style={styles.tabViewItem}>
+            <TimetableComponent/>
+          </TabView.Item>
+          <TabView.Item style={styles.tabViewItem}>
+            <CalendarComponent/>
+          </TabView.Item>
+          <TabView.Item style={styles.tabViewItem}>
+            <SettingComponent/>
+          </TabView.Item>
         </TabView>
       </View>
     </SafeAreaView>
@@ -120,22 +108,38 @@ const styles = StyleSheet.create({
   publicView: {
     flex: 2,
     padding: 5,
-    backgroundColor: 'skyblue', // FIXME: dlelete
   },
   componentView: {
     flex: 3,
-    backgroundColor: 'gray', // FIXME: delete
   },
   customTabView: {
     flex: 1,
     justifyContent: 'center',
-    borderWidth: 1, // FIXME: delete
   },
   publicContentView: {
     flex: 3,
-    padding: 5,
+    paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'center',
-    borderWidth: 1, // FIXME: delete
+  },
+  tabViewItem: {
+    flex: 1,
+    paddingHorizontal: 20
+  },
+  publicContentSideView: {
+    flex:1,
+    borderWidth:1
+  },
+  card: { 
+    backgroundColor: 'white',
+    borderRadius: 15,
+    margin:5,
+    shadowColor:'black',
+    shadowRadius: 5,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 5
+    }
   }
 });

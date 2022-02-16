@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height:50,
-    backgroundColor: 'pink'
   },
   title: {
   }
