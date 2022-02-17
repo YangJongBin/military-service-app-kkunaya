@@ -60,9 +60,9 @@ export default function Home(props : Props) {
           styles.publicContentView
         }>
           {/* Left */}
-          <View style={styles.publicContentSideView}>
-            <View style={[styles.card, { width: 50, height: 50 }]}></View>
-            <View style={[styles.card, { flex: 1 }]}></View>
+          <View style={[styles.publicContentSideView, {alignItems:'flex-start'}]}>
+            <View style={[styles.card, { width:70, height: 70, marginLeft:0 }]}></View>
+            <View style={[styles.card, { width:70, height: 70, marginLeft:0 }]}></View>
           </View>
           {/* Center */}
           <View style={
@@ -74,7 +74,10 @@ export default function Home(props : Props) {
             <SoldierThree></SoldierThree>
           </View>
           {/* Right */}
-          <View style={styles.publicContentSideView}></View>
+          <View style={[styles.publicContentSideView, {alignItems:'flex-end'}]}>
+            <View style={[styles.card, { width:70, height: 70, marginRight:0 }]}></View>
+            <View style={[styles.card, { width:70, height: 70, marginRight:0 }]}></View>
+          </View>
         </View>
       </View>
       <View style={
@@ -128,6 +131,7 @@ const styles = StyleSheet.create({
   },
   publicContentSideView: {
     flex:1,
+    justifyContent: 'space-around',
     borderWidth:1
   },
   card: { 

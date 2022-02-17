@@ -28,16 +28,18 @@
     "react-native-gesture-handler": "^2.2.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.11.1",
+    "react-native-svg": "^12.1.1",
     "react-native-unimodules": "^0.13.3",
     "react-native-vector-icons": "^9.1.0",
     "react-native-version-check": "^3.4.2",
     "react-redux": "^7.2.6",
     "three": "^0.137.5",
-    "typesafe-actions": "^5.1.0"
+    "typesafe-actions": "^5.1.0",
+    "victory-native": "^36.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@babel/runtime": "^7.12.5",
+    "@babel/runtime": "^7.17.2",
     "@react-native-community/eslint-config": "^2.0.0",
     "@types/jest": "^26.0.20",
     "@types/react-native": "^0.63.51",
