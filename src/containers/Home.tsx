@@ -16,7 +16,7 @@ import {getInit} from '../modules/init';
 import SoldierThree from '../components/SoldierThree';
 import MyHeader from '../components/MyHeader';
 import DetailComponent from '../components/DetailComponent';
-import TimetableComponent from '../components/TimetableComponent';
+import ScheduleComponent from '../components/ScheduleComponent';
 import CalendarComponent from '../components/CalendarComponent';
 import SettingComponent from '../components/SettingComponent';
 
@@ -90,7 +90,7 @@ export default function Home(props : Props) {
             <DetailComponent/>
           </TabView.Item>
           <TabView.Item style={styles.tabViewItem}>
-            <TimetableComponent/>
+            <ScheduleComponent/>
           </TabView.Item>
           <TabView.Item style={styles.tabViewItem}>
             <CalendarComponent/>
