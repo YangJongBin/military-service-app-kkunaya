@@ -19,9 +19,7 @@ export default function Login(props: Props) {
   return (
     <ThemeProvider theme={theme}>
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-        <Input placeholder="ID" style={styles.input}></Input>
-        <Input placeholder="PW" style={styles.input}></Input>
-        <Button title="Sign In" style={styles.button} />
+        <Button title="Sign in with Google" style={styles.button} />
       </KeyboardAvoidingView>
     </ThemeProvider>
   );
@@ -29,14 +27,12 @@ export default function Login(props: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'pink',
+    flex:1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   button: {
-    width: 100,
+    width: '100%',
   },
   input: {},
 });

@@ -16,8 +16,8 @@ export default function Navi(props: Props) {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
-          name="Home"
-          component={Home}
+          name="Login"
+          component={Login}
           options={{headerShown: false}}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

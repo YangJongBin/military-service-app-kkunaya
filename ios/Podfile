@@ -14,6 +14,9 @@ target 'kkunaya' do
     :hermes_enabled => false
   )
 
+  pod 'Firebase/Analytics'
+  pod 'Google-Mobile-Ads-SDK'
+
   target 'kkunayaTests' do
     inherit! :complete
     # Pods for testing
