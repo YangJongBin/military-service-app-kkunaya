@@ -3,6 +3,8 @@
 .DS_Store
 
 # Xcode
+GoogleService-Info.plist
+
 #
 build/
 *.pbxuser
@@ -57,6 +59,3 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
-
-# google
-GoogleService-Info.plist
