@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 interface Props {
     
@@ -8,7 +9,7 @@ interface Props {
 const MyHeader = (props: Props) => {
   return (
     <View style={styles.header}>
-      <Text>ㄲㄴㅇ</Text>
+      <Button title="button" onPress={()=>auth().signOut()}></Button>
     </View>
   );
 };

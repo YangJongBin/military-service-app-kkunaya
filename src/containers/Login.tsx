@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, KeyboardAvoidingView} from 'react-native';
+import {StyleSheet, Text, View, KeyboardAvoidingView, SafeAreaView} from 'react-native';
 import {ThemeProvider, Input, Button} from 'react-native-elements';
 import {GoogleSignin, GoogleSigninButton} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
@@ -31,19 +31,19 @@ export default function Login(props : Props) {
   const onGoogleButtonPress = async () => {
     const { idToken } = await GoogleSignin.signIn();
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
     return auth().signInWithCredential(googleCredential);
   };
 
 
   return (
     <ThemeProvider theme={theme}>
-      <KeyboardAvoidingView style={
+      <SafeAreaView style={
         styles.container
       }
-      behavior="padding"
-      enabled>
-        <GoogleSigninButton onPress={onGoogleButtonPress}></GoogleSigninButton>
-      </KeyboardAvoidingView>
+      >
+        <GoogleSigninButton onPress={onGoogleButtonPress} ></GoogleSigninButton>
+      </SafeAreaView>
     </ThemeProvider>
   );
 }
