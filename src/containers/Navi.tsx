@@ -9,17 +9,17 @@ import _ from 'lodash';
 
 import Login from './Login';
 import Home from './Home';
+import UserSetting from './UserSetting';
 
 interface Props {}
 
 export default function Navi(props: Props) {
   const Stack = createStackNavigator();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [userType, setUserType] = useState<number>(0); // 0: none, 1: soldier , 2: gomshin
 
   useEffect(() => {
     auth().onAuthStateChanged((user : any)=>{
-      console.log(user);
-      
       if(user){
         setIsLoggedIn(true);
       }else{
@@ -32,10 +32,17 @@ export default function Navi(props: Props) {
     <NavigationContainer>
       {isLoggedIn?
         <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{headerShown: false}}></Stack.Screen>
+          {userType === 0 ? 
+            <Stack.Screen
+              name="UserSetting"
+              component={UserSetting}
+              options={{headerShown: false}}></Stack.Screen>
+            :
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{headerShown: false}}></Stack.Screen>
+          }
         </Stack.Navigator>
         :
         <Stack.Navigator initialRouteName="Login">

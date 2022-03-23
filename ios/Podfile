@@ -15,7 +15,7 @@ target 'kkunaya' do
   )
 
   pod 'Firebase/Analytics'
-  # pod 'Google-Mobile-Ads-SDK'
+  pod 'Google-Mobile-Ads-SDK'
   pod 'GoogleSignIn'
   
   target 'kkunayaTests' do
