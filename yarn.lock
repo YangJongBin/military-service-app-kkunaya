@@ -1899,6 +1899,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-11.5.0.tgz#b7fd56c249ee1f2992cd297ec734dacbd5b9831b"
   integrity sha512-kdO+dbGqZluX1zkxGXI+DNn1PU83WcY9jdXSGtKjiHkoduB4lBmfGvewDlIiYtJNmXly/Jf3FrLEwa77ZDuArQ==
 
+"@react-native-firebase/firestore@^11.5.0":
+  version "11.5.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-11.5.0.tgz#3e0349891cb908fe7d24f9b3c1315ff6ffd8e3d6"
+  integrity sha512-yZv5bxTNICckRtEucb9SSX0slXN4CbN5ZT7tFh9Pm1CTEtU2jVcSC7qhG5l5SqmcoMOBnFavm8Mbti6BY5/1cg==
+
 "@react-native-google-signin/google-signin@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@react-native-google-signin/google-signin/-/google-signin-7.1.0.tgz#de39000dc1e095c54b8136436ad43cfd8c938a0c"
@@ -5892,12 +5897,7 @@ lodash.truncate@^4.4.2:
   resolved "https://registry.npmjs.org/lodash.truncate/-/lodash.truncate-4.4.2.tgz"
   integrity sha1-WjUNoLERO4N+z//VgSy+WNbq4ZM=
 
-lodash@^4.17.10, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.7.0:
-  version "4.17.21"
-  resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
-  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
-
-lodash@^4.17.21:
+lodash@^4.17.10, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.21, lodash@^4.7.0:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
