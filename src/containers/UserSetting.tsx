@@ -1,7 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
+import {TabView, ButtonGroup} from 'react-native-elements';
+
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+
+import MyHeader from '../components/MyHeader';
 
 interface Props {
     
@@ -16,6 +20,7 @@ interface Params {
   type: number;
 }
 
+// FIXME: 이것을 redux로 리펙토링 하는게 맞고 어떻게 하는걸까?
 const UserSetting = (props: Props) => {
   const ref = firestore().collection('user');
   const user: User = auth().currentUser;
@@ -29,13 +34,10 @@ const UserSetting = (props: Props) => {
   }
 
   return (
-    <SafeAreaView>
-      <Button title="test" onPress={()=>{
-        console.log(user);
-
-        insertUserInfo({
-          type: 1
-        });
+    <SafeAreaView style={styles.container}>
+      <MyHeader></MyHeader>
+      <Button title="test" onPress={() => {
+        insertUserInfo({type:1});
       }}></Button>
     </SafeAreaView>
   );
@@ -43,4 +45,9 @@ const UserSetting = (props: Props) => {
 
 export default UserSetting;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'gray'
+  }
+});
