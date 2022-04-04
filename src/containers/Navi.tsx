@@ -9,9 +9,11 @@ import firestore from '@react-native-firebase/firestore';
 
 import _ from 'lodash';
 
+import Spinner from './Spinner';
 import Login from './Login';
 import Home from './Home';
 import UserSetting from './UserSetting';
+import { forFade } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/HeaderStyleInterpolators';
 
 interface Props {}
 
@@ -31,46 +33,64 @@ export default function Navi(props: Props) {
   useEffect(() => {
     auth().onAuthStateChanged((user: User)=>{
       if(user){
-        setIsLoggedIn(true);
-        
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         firestore().collection('user').where('email', '==', user.email).get().then(collection => {
-          console.log(collection.size);
-          
           if(collection.size === 0){
-            setUserType(0);
+            navigationRef.current.navigate('UserSetting');
           }else{
             const resultUserInfo: User = collection.docs[0]._data;
             
-            setUserType(resultUserInfo.type);
+            navigationRef.current.navigate('Home');
           }
           
         });
       }else{
-        setIsLoggedIn(false);
+        navigationRef.current.navigate('Login');
       }
     });
   }, []);
 
-  useEffect(() => {
-    
-  }, [isLoggedIn, userType]);
+  const forFade = ({current}: any) => ({
+    cardStyle: {
+      opacity: current.progress,
+    },
+  });
 
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Spinner">
+        <Stack.Screen
+          name="Spinner"
+          component={Spinner}
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+            cardStyleInterpolator:forFade,
+          }}></Stack.Screen>
         <Stack.Screen
           name="Login"
           component={Login}
-          options={{headerShown: false}}></Stack.Screen>
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+            cardStyleInterpolator:forFade,
+          }}></Stack.Screen>
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{headerShown: false}}></Stack.Screen>
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+            cardStyleInterpolator:forFade,
+          }}></Stack.Screen>
         <Stack.Screen
           name="UserSetting"
           component={UserSetting}
-          options={{headerShown: false}}></Stack.Screen>
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+            cardStyleInterpolator:forFade,
+          }}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
