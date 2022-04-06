@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
+import asnycStorage from '@react-native-async-storage/async-storage';
 import 'react-native-gesture-handler';
-import {StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer, StackActions} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -13,7 +13,7 @@ import Spinner from './Spinner';
 import Login from './Login';
 import Home from './Home';
 import UserSetting from './UserSetting';
-import { forFade } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/HeaderStyleInterpolators';
+import SoldierList from './SoldierList';
 
 interface Props {}
 
@@ -31,16 +31,30 @@ export default function Navi(props: Props) {
   const navigationRef = useRef(null);
 
   useEffect(() => {
+    // 로그인 유무
     auth().onAuthStateChanged((user: User)=>{
       if(user){
+        // Select Table
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         firestore().collection('user').where('email', '==', user.email).get().then(collection => {
+          // User 데이터베이스 탐색
           if(collection.size === 0){
             navigationRef.current.navigate('UserSetting');
           }else{
-            const resultUserInfo: User = collection.docs[0]._data;
+            const userInfo: User = collection.docs[0]._data;
+
+            // User Type 구분
+            if(userInfo.type === 1){
+              navigationRef.current.navigate('Home');
+              
+            }else if(userInfo.type === 2){
+              asnycStorage.getItem('selectedSoldier').then((value: string)=>{
+                navigationRef.current.navigate(_.isEmpty(value) ? 'SoldierList': 'Home');
+              });
+            }
             
-            navigationRef.current.navigate('Home');
+            // TODO: User type 구분 코드
+
           }
           
         });
@@ -86,6 +100,14 @@ export default function Navi(props: Props) {
         <Stack.Screen
           name="UserSetting"
           component={UserSetting}
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+            cardStyleInterpolator:forFade,
+          }}></Stack.Screen>
+        <Stack.Screen
+          name="SoldierList"
+          component={SoldierList}
           options={{
             headerShown: false,
             gestureEnabled: false,

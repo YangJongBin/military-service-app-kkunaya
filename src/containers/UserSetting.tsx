@@ -36,9 +36,14 @@ const UserSetting = (props: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <MyHeader></MyHeader>
-      <Button title="test" onPress={() => {
-        insertUserInfo({type:1});
-      }}></Button>
+      <View style={{flex: 1, flexDirection: 'row', justifyContent:'space-around', alignItems: 'center'}}>
+        <Button style={styles.button} title="꾸나" onPress={() => {
+          insertUserInfo({type:1});
+        }}></Button>
+        <Button style={styles.button} title="곰신" onPress={() => {
+          insertUserInfo({type:2});
+        }}></Button>
+      </View>
     </SafeAreaView>
   );
 };
@@ -48,6 +53,7 @@ export default UserSetting;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'gray'
+  },
+  button: {
   }
 });

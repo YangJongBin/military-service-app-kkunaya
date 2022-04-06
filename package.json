@@ -11,6 +11,7 @@
     "format": "prettier --check ./src"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.17.3",
     "@react-native-firebase/admob": "^11.5.0",
     "@react-native-firebase/app": "11.5",
     "@react-native-firebase/auth": "11.5",

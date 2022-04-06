@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, KeyboardAvoidingView, SafeAreaView} from 'react-native';
-import {ThemeProvider, Input, Button} from 'react-native-elements';
-import {GoogleSignin, GoogleSigninButton} from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
+import {StyleSheet, SafeAreaView} from 'react-native';
+import {ThemeProvider} from 'react-native-elements';
+import {GoogleSigninButton,GoogleSignin} from '@react-native-google-signin/google-signin';
+import {useDispatch} from 'react-redux';
 
-interface Props {}
+// actions
+import {loginAction} from '../modules/login';
+
 interface Theme {
     Button: {
         raised: boolean;
@@ -17,32 +19,27 @@ const theme: Theme = {
   }
 };
 
-const googleSigninConfigure = () => {
-  GoogleSignin.configure({
-  });
-};
-
-
-export default function Login(props : Props) {
-  useEffect(() => {
-    googleSigninConfigure();
-  }, []);
-
-  const onGoogleButtonPress = async () => {
-    const { idToken } = await GoogleSignin.signIn();
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-    return auth().signInWithCredential(googleCredential);
+export default function Login() {
+  const dispatch = useDispatch();
+  const googleSigninConfigure = () => {
+    GoogleSignin.configure({
+    });
   };
 
-
+  useEffect(() => {
+    googleSigninConfigure(); 
+  }, []);
+  
   return (
     <ThemeProvider theme={theme}>
       <SafeAreaView style={
         styles.container
       }
       >
-        <GoogleSigninButton onPress={onGoogleButtonPress} ></GoogleSigninButton>
+        <GoogleSigninButton onPress= {()=>{
+          // login
+          dispatch(loginAction());
+        }} ></GoogleSigninButton>
       </SafeAreaView>
     </ThemeProvider>
   );
