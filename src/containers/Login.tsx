@@ -26,6 +26,7 @@ export default function Login() {
     });
   };
 
+  // 구글 로그인 초기 옵션 세팅 : 옵션이 없어도 세팅하지 않으면 오류 발생.
   useEffect(() => {
     googleSigninConfigure(); 
   }, []);
@@ -37,8 +38,9 @@ export default function Login() {
       }
       >
         <GoogleSigninButton onPress= {()=>{
-          // login
+          // login disaptch
           dispatch(loginAction());
+
         }} ></GoogleSigninButton>
       </SafeAreaView>
     </ThemeProvider>

@@ -5,6 +5,12 @@ import {
 } from 'typesafe-actions';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
+import {AxiosResponse, AxiosError} from 'axios';
+
+// interface 
+export interface RequestPayloadType {}
+export interface ResponsePayloadType {}
+
 
 // action type
 export const LOGIN = 'LOGIN' as const;
@@ -12,28 +18,32 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST' as const;
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS' as const;
 export const LOGIN_FAILURE = 'LOGIN_FAILURE' as const;
 
-const onGoogleButtonPress = async () => {
+// creater action
+export const loginAction = createAction(LOGIN)<string[]>();
+
+export const getAsyncInit = createAsyncAction(
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+)<RequestPayloadType, AxiosResponse<ResponsePayloadType>, AxiosError>();
+  
+// func
+export const onGoogleButtonPress = async () => {
   const { idToken } = await GoogleSignin.signIn();
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
+  
   return auth().signInWithCredential(googleCredential);
 };
-
-// action func
-export const loginAction = createAction(LOGIN, () => {
-  onGoogleButtonPress();
-})();
-
-
-// 3. ready action type
+  
+// ready action type
 const actions = {loginAction};
-type InitAction = ActionType<typeof actions>;
-
+  type InitAction = ActionType<typeof actions>;
+  
 // 4. ready state type
 export type InitState = {
-  isLoading: boolean,
-};
-
+    isLoading: boolean,
+  };
+  
 // 5. state
 const initState: InitState = {
   isLoading: false,
