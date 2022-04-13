@@ -4,7 +4,7 @@ import asyncStorage from '@react-native-async-storage/async-storage';
 import {useSelector, useDispatch} from 'react-redux';
 
 // action
-import {selectSoldier} from '../modules/selectSoldier';
+// import {selectSoldier} from '../modules/selectSoldier';
 
 interface Props {
     

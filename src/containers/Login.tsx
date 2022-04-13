@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, SafeAreaView} from 'react-native';
+import {StyleSheet, SafeAreaView, Text} from 'react-native';
 import {ThemeProvider} from 'react-native-elements';
 import {GoogleSigninButton,GoogleSignin} from '@react-native-google-signin/google-signin';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 // actions
-import {loginAction} from '../modules/login';
+import {testAction} from '../modules/login/actions';
 
 interface Theme {
     Button: {
@@ -21,6 +21,7 @@ const theme: Theme = {
 
 export default function Login() {
   const dispatch = useDispatch();
+  const {isLoading} = useSelector(state => state.login);
   const googleSigninConfigure = () => {
     GoogleSignin.configure({
     });
@@ -37,9 +38,10 @@ export default function Login() {
         styles.container
       }
       >
+        <Text>{isLoading}</Text>
         <GoogleSigninButton onPress= {()=>{
           // login disaptch
-          dispatch(loginAction());
+          dispatch(testAction.request());
 
         }} ></GoogleSigninButton>
       </SafeAreaView>

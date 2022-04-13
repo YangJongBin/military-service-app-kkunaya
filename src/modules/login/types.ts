@@ -1,3 +1,3 @@
-// interface 
+// axios interface
 export interface RequestPayloadType {}
 export interface ResponsePayloadType {}
