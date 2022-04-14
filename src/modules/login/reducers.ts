@@ -1,8 +1,8 @@
 import {createReducer} from 'typesafe-actions';
-import {LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE} from './actions';
+import {LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE } from './actions';
 
 interface InitState {
-    isLoading: boolean,
+    isLoading: boolean
 }
 
 const initState: InitState = {
@@ -21,6 +21,7 @@ const reducer = createReducer(initState, {
   [LOGIN_FAILURE]: (state, action) => ({
     ...state,
     isLoading: false,
+    userInfo: {}
   }),
 });
   

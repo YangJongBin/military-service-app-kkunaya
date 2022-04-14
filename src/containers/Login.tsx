@@ -23,7 +23,7 @@ const theme: Theme = {
 
 export default function Login() {
   const dispatch = useDispatch();
-  const {isLoading} = useSelector((state: RootState) => state.login);
+  const {isLoading, userInfo} = useSelector((state: RootState) => state.login);
   const googleSigninConfigure = () => {
     GoogleSignin.configure({
     });
@@ -36,6 +36,7 @@ export default function Login() {
   
   return (
     <ThemeProvider theme={theme}>
+      <Text style={{marginTop: 50}}>{JSON.stringify(userInfo)}</Text>
       <SafeAreaView style={
         styles.container
       }

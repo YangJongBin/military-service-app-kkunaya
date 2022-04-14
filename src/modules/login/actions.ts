@@ -3,7 +3,7 @@ import {AxiosResponse, AxiosError} from 'axios';
 
 import {RequestPayloadType, ResponsePayloadType} from './types';
 
-// 액션 타입
+// 로그인 액션 타입
 export const LOGIN = 'LOGIN' as const;
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS' as const;
 export const LOGIN_FAILURE = 'LOGIN_FAILURE' as const;

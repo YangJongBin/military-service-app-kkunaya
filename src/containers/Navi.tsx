@@ -11,9 +11,9 @@ import _ from 'lodash';
 
 import Spinner from './Spinner';
 import Login from './Login';
-// import Home from './Home';
-// import UserSetting from './UserSetting';
-// import SoldierList from './SoldierList';
+import Home from './Home';
+import UserSetting from './UserSetting';
+import SoldierList from './SoldierList';
 
 interface Props {}
 
@@ -25,43 +25,36 @@ interface User {
 
 export default function Navi(props: Props) {
   const Stack = createStackNavigator();
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [userType, setUserType] = useState<number>(0); // 0: none, 1: soldier , 2: gomshin
-  const [naviTarget, setNaviTarget] = useState<string>('Login');
   const navigationRef = useRef(null);
 
   useEffect(() => {
     // 로그인 유무
-  //   auth().onAuthStateChanged((user: User)=>{
-  //     if(user){
-  //       // Select Table
-  //       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  //       firestore().collection('user').where('email', '==', user.email).get().then(collection => {
-  //         // User 데이터베이스 탐색
-  //         if(collection.size === 0){
-  //           navigationRef.current.navigate('UserSetting');
-  //         }else{
-  //           const userInfo: User = collection.docs[0]._data;
+    auth().onAuthStateChanged((user: User)=>{
+      if(user){
+        // User 데이터베이스 탐색
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        firestore().collection('user').where('email', '==', user.email).get().then(collection => {
+          if(collection.size === 0){
+            navigationRef.current.navigate('UserSetting');
+          }else{
+            const userInfo: User = collection.docs[0]._data; // 유저 정보
 
-    //           // User Type 구분
-    //           if(userInfo.type === 1){
-    //             navigationRef.current.navigate('Home');
+            // 0: none, 1: soldier , 2: gomshin 
+            if(userInfo.type === 1){
+              navigationRef.current.navigate('Home');
               
-    //           }else if(userInfo.type === 2){
-    //             asnycStorage.getItem('selectedSoldier').then((value: string)=>{
-    //               navigationRef.current.navigate(_.isEmpty(value) ? 'SoldierList': 'Home');
-    //             });
-    //           }
-            
-    //           // TODO: User type 구분 코드
-
-    //         }
+            }else if(userInfo.type === 2){
+              asnycStorage.getItem('selectedSoldier').then((value: string)=>{
+                navigationRef.current.navigate(_.isEmpty(value) ? 'SoldierList': 'Home');
+              });
+            }
+          }
           
-  //       });
-  //     }else{
-  //       navigationRef.current.navigate('Login');
-  //     }
-  //   });
+        });
+      }else{
+        navigationRef.current.navigate('Login');
+      }
+    });
   }, []);
 
   const forFade = ({current}: any) => ({
@@ -72,7 +65,7 @@ export default function Navi(props: Props) {
 
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Spinner">
         <Stack.Screen
           name="Spinner"
           component={Spinner}
@@ -89,7 +82,7 @@ export default function Navi(props: Props) {
             gestureEnabled: false,
             cardStyleInterpolator:forFade,
           }}></Stack.Screen>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Home"
           component={Home}
           options={{
@@ -112,7 +105,7 @@ export default function Navi(props: Props) {
             headerShown: false,
             gestureEnabled: false,
             cardStyleInterpolator:forFade,
-          }}></Stack.Screen> */}
+          }}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

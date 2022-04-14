@@ -24,7 +24,6 @@ interface Props {}
 
 export default function Home(props : Props) {
   const {width, height} = Dimensions.get('screen');
-  const initValue = useSelector(state => state.init.value);
   const dispatch = useDispatch();
 
   const [tabIndex, setTabIndex] = useState(0);
