@@ -5,7 +5,9 @@ import {GoogleSigninButton,GoogleSignin} from '@react-native-google-signin/googl
 import {useDispatch, useSelector} from 'react-redux';
 
 // actions
-import {testAction} from '../modules/login/actions';
+import {loginAction} from '../modules/login/actions';
+
+import {RootState} from '../modules';
 
 interface Theme {
     Button: {
@@ -21,7 +23,7 @@ const theme: Theme = {
 
 export default function Login() {
   const dispatch = useDispatch();
-  const {isLoading} = useSelector(state => state.login);
+  const {isLoading} = useSelector((state: RootState) => state.login);
   const googleSigninConfigure = () => {
     GoogleSignin.configure({
     });
@@ -38,11 +40,8 @@ export default function Login() {
         styles.container
       }
       >
-        <Text>{isLoading}</Text>
         <GoogleSigninButton onPress= {()=>{
-          // login disaptch
-          dispatch(testAction.request());
-
+          dispatch(loginAction.request());
         }} ></GoogleSigninButton>
       </SafeAreaView>
     </ThemeProvider>

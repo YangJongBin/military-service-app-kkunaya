@@ -1,22 +1,21 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 
 import {ResponsePayloadType} from './types';
-import {LOGIN_REQUEST} from './actions';
 import {onGoogleButtonPress} from './funcs';
-import {testAction} from './actions';
+import {loginAction, LOGIN} from './actions';
 
-function* saga(action: ReturnType<typeof getAsyncInit.request>) {
+function* saga(action: ReturnType<typeof loginAction.request>) {
   try {
     const response: ResponsePayloadType = yield call(onGoogleButtonPress);
 
-    yield put(testAction.success(response));
+    yield put(loginAction.success(response));
   } catch (error) {
-    yield put(testAction.failure(error));
+    yield put(loginAction.failure(error));
   }
 }
 
-export function* testSaga() {
-  yield takeLatest(LOGIN_REQUEST, saga);
+export function* loginSaga() {
+  yield takeLatest(LOGIN, saga);
 }
 
-export { testSaga as default };
+export { loginSaga as default };
