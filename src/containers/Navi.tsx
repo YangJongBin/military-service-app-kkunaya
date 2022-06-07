@@ -1,8 +1,9 @@
 import React, {useState, useEffect, useRef} from 'react';
 import asnycStorage from '@react-native-async-storage/async-storage';
 import 'react-native-gesture-handler';
-import {NavigationContainer, StackActions} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useSelector} from 'react-redux';
 
 import auth from'@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -15,27 +16,32 @@ import Home from './Home';
 import UserSetting from './UserSetting';
 import SoldierList from './SoldierList';
 
-interface Props {}
-
 interface User {
   displayName: string;
   email: string;
   type: number;
+  uid: string;
 }
 
-export default function Navi(props: Props) {
+export default function Navi() {
   const Stack = createStackNavigator();
   const navigationRef = useRef(null);
+  const {userInfo} = useSelector(state => state.updateUserInfo);
 
   useEffect(() => {
+    console.log('@@ userInfo: ', userInfo);
+    
     // 로그인 유무
     auth().onAuthStateChanged((user: User)=>{
+      console.log('@@ user: ', user); // FIXME: delete
+      
       if(user){
         // User 데이터베이스 탐색
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         firestore().collection('user').where('email', '==', user.email).get().then(collection => {
           if(collection.size === 0){
             navigationRef.current.navigate('UserSetting');
+
           }else{
             const userInfo: User = collection.docs[0]._data; // 유저 정보
 
@@ -49,13 +55,12 @@ export default function Navi(props: Props) {
               });
             }
           }
-          
         });
       }else{
         navigationRef.current.navigate('Login');
       }
     });
-  }, []);
+  }, [userInfo]);
 
   const forFade = ({current}: any) => ({
     cardStyle: {
