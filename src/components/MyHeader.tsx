@@ -12,7 +12,7 @@ const MyHeader = (props: Props) => {
     <View style={styles.header}>
       <Button title="button" onPress={()=>{
         auth().signOut(); 
-        asyncStorage.removeItem('selectedSoldier'); // FIXME: will delete
+        asyncStorage.removeItem('selectedSoldierUid'); // FIXME: will delete
       }}></Button>
     </View>
   );

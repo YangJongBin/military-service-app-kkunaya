@@ -23,12 +23,12 @@ const SoldierList = (props: Props) => {
   return (
     <SafeAreaView>
       <Button title={'TEST SELECTED SOLDIER BUTTON'} onPress={()=>{
-        asyncStorage.setItem('selectedSoldier', 'developer'); // FIXME: 사용자 email 저장 예정
+        asyncStorage.setItem('selectedSoldierUid', 'TEST UID'); // FIXME: 사용자 uid 저장 예정
 
         console.log('this ==>', soldierInfo);
 
         // TODO: set state selected soldier info
-        dispatch(selectSoldier({email: 'hhi'}));
+        // dispatch(selectSoldier({email: 'hhi'}));
       }}></Button>
     </SafeAreaView>
   );

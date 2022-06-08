@@ -53,7 +53,9 @@ export default function Navi() {
             navigationRef.current.navigate('UserSetting');
 
           }else{
-            const userInfo: User = collection.docs[0]._data; // 유저 정보 FIXME: state로 수정 
+            const userInfo: User = collection.docs[0]._data; 
+
+            console.log('@@ User type ==>', userInfo.type); // FIXME: delete
 
             // 0: none, 1: soldier , 2: gomshin 
             if(userInfo.type === 1){
@@ -62,6 +64,8 @@ export default function Navi() {
             }else if(userInfo.type === 2){
               // 이미 선택한 유저가 있을 경우를 체크.
               asnycStorage.getItem('selectedSoldierUid').then((value: string)=>{
+                console.log('@@ Selected Soldier UID ==>', value); // FIXME: delete
+                
                 navigationRef.current.navigate(_.isEmpty(value) ? 'SoldierList': 'Home');
               });
             }
