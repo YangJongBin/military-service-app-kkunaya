@@ -1,7 +1,5 @@
-export const updateUserInfo = () => {
-  console.log('update userInfo ');
-  
-  return {
-    type: 1
-  };
+import {ResponsePayloadType} from './types';
+
+export const updateUserInfo = (params : ResponsePayloadType) => {
+  return params;
 };

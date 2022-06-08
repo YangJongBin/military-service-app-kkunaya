@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
 import {TabView, ButtonGroup} from 'react-native-elements';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -16,6 +16,7 @@ interface Props {
 interface User {
   displayName: string;
   email: string;
+  type: number;
 }
 
 interface Params {
@@ -27,6 +28,7 @@ const UserSetting = (props: Props) => {
   const ref = firestore().collection('user');
   const user: User = auth().currentUser;
   const dispatch = useDispatch();
+  const {userInfo} = useSelector(state => state.updateUserInfo);
 
   async function insertUserInfo(params: Params) {
     await ref.add({
@@ -41,8 +43,10 @@ const UserSetting = (props: Props) => {
       <MyHeader></MyHeader>
       <View style={{flex: 1, flexDirection: 'row', justifyContent:'space-around', alignItems: 'center'}}>
         <Button style={styles.button} title="꾸나" onPress={() => {
+          console.log('@@ userInfo ==>', userInfo);
+          
           // insertUserInfo({type:1});
-          dispatch(updateUserInfoAction.request());
+          // dispatch(updateUserInfoAction.request({type: 1}));
         }}></Button>
         <Button style={styles.button} title="곰신" onPress={() => {
           insertUserInfo({type:2});

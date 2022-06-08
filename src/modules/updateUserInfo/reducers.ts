@@ -1,3 +1,4 @@
+import { ActionSheetIOS } from 'react-native';
 import {createReducer} from 'typesafe-actions';
 import {UPDATEUSERINFO, UPDATEUSERINFO_SUCCESS, UPDATEUSERINFO_FAILURE } from './actions';
 
@@ -22,7 +23,7 @@ const reducer = createReducer(initState, {
   [UPDATEUSERINFO_SUCCESS]: (state, action) => ({
     ...state,
     isLoading: false,
-    userInfo: state.userInfo
+    userInfo: action.payload
   }),
   [UPDATEUSERINFO_FAILURE]: (state, action) => ({
     ...state,

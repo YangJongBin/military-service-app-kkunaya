@@ -6,9 +6,7 @@ import {updateUserInfoAction, UPDATEUSERINFO} from './actions';
 
 function* saga(action: ReturnType<typeof updateUserInfoAction.request>) {
   try {
-    const response: ResponsePayloadType = yield call(updateUserInfo);
-
-    console.log('@@ here ==>', response);
+    const response: ResponsePayloadType = yield call(updateUserInfo, action.payload);
 
     yield put(updateUserInfoAction.success(response));
   } catch (error) {

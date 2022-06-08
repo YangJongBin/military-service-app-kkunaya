@@ -3,7 +3,10 @@ import asnycStorage from '@react-native-async-storage/async-storage';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+
+// actions
+import {updateUserInfoAction} from '../modules/updateUserInfo/actions';
 
 import auth from'@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -26,16 +29,23 @@ interface User {
 export default function Navi() {
   const Stack = createStackNavigator();
   const navigationRef = useRef(null);
-  const {userInfo} = useSelector(state => state.updateUserInfo);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('@@ userInfo: ', userInfo);
     
     // 로그인 유무
     auth().onAuthStateChanged((user: User)=>{
       console.log('@@ user: ', user); // FIXME: delete
       
       if(user){
+        // TODO: 유저 정보 global state에 저장
+        dispatch(updateUserInfoAction.request({
+          displayName: user.displayName,
+          email: user.email,
+          uid: user.uid,
+          type: 0,
+        }));
+
         // User 데이터베이스 탐색
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         firestore().collection('user').where('email', '==', user.email).get().then(collection => {
@@ -50,7 +60,8 @@ export default function Navi() {
               navigationRef.current.navigate('Home');
               
             }else if(userInfo.type === 2){
-              asnycStorage.getItem('selectedSoldier').then((value: string)=>{
+              // 이미 선택한 유저가 있을 경우를 체크.
+              asnycStorage.getItem('selectedSoldierUid').then((value: string)=>{
                 navigationRef.current.navigate(_.isEmpty(value) ? 'SoldierList': 'Home');
               });
             }
@@ -60,7 +71,7 @@ export default function Navi() {
         navigationRef.current.navigate('Login');
       }
     });
-  }, [userInfo]);
+  }, []);
 
   const forFade = ({current}: any) => ({
     cardStyle: {

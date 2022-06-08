@@ -21,7 +21,6 @@ const reducer = createReducer(initState, {
   [LOGIN_FAILURE]: (state, action) => ({
     ...state,
     isLoading: false,
-    userInfo: {}
   }),
 });
   
