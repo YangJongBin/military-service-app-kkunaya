@@ -3,7 +3,7 @@ import asnycStorage from '@react-native-async-storage/async-storage';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 // actions
 import {updateUserInfoAction} from '../modules/updateUserInfo/actions';
@@ -48,12 +48,12 @@ export default function Navi() {
 
         // User 데이터베이스 탐색
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        firestore().collection('user').where('email', '==', user.email).get().then(collection => {
+        firestore().collection('user').where('uid', '==', user.uid).get().then(collection => {
           if(collection.size === 0){
             navigationRef.current.navigate('UserSetting');
 
           }else{
-            const userInfo: User = collection.docs[0]._data; // 유저 정보
+            const userInfo: User = collection.docs[0]._data; // 유저 정보 FIXME: state로 수정 
 
             // 0: none, 1: soldier , 2: gomshin 
             if(userInfo.type === 1){

@@ -1,5 +1,3 @@
 import {ResponsePayloadType} from './types';
 
-export const updateUserInfo = (params : ResponsePayloadType) => {
-  return params;
-};
+export const updateUserInfo = (params : ResponsePayloadType) => params;
