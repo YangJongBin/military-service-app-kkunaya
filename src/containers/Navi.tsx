@@ -3,7 +3,7 @@ import asnycStorage from '@react-native-async-storage/async-storage';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 // actions
 import {updateUserInfoAction} from '../modules/updateUserInfo/actions';
@@ -30,15 +30,15 @@ export default function Navi() {
   const Stack = createStackNavigator();
   const navigationRef = useRef(null);
   const dispatch = useDispatch();
+  const { userInfo } = useSelector(state => state.updateUserInfo);
 
   useEffect(() => {
-    
     // 로그인 유무
     auth().onAuthStateChanged((user: User)=>{
       console.log('@@ user: ', user); // FIXME: delete
       
       if(user){
-        // TODO: 유저 정보 global state에 저장
+        // 유저 정보 global state에 저장
         dispatch(updateUserInfoAction.request({
           displayName: user.displayName,
           email: user.email,
@@ -76,6 +76,13 @@ export default function Navi() {
       }
     });
   }, []);
+
+  // TODO: 사용자가 곰신일 경우 ( type: 2 ) 선택된 군인이 있는지 판단.
+  useEffect(() => {
+    if(!_.isEmpty(userInfo.selectedSoldierUid)){
+      navigationRef.current.navigate('Home');
+    }
+  }, [userInfo]);
 
   const forFade = ({current}: any) => ({
     cardStyle: {
