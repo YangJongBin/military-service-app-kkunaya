@@ -77,7 +77,7 @@ export default function Navi() {
     });
   }, []);
 
-  // TODO: 사용자가 곰신일 경우 ( type: 2 ) 선택된 군인이 있는지 판단.
+  // 사용자가 곰신일 경우 ( type: 2 ) 선택된 군인이 있는지 판단.
   useEffect(() => {
     if(!_.isEmpty(userInfo.selectedSoldierUid)){
       navigationRef.current.navigate('Home');

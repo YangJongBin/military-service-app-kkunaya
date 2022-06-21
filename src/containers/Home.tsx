@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -20,11 +20,22 @@ import ScheduleComponent from '../components/ScheduleComponent';
 import CalendarComponent from '../components/CalendarComponent';
 import SettingComponent from '../components/SettingComponent';
 
-interface Props {}
+interface UserInfo {
+  displayName : string;
+  type: number;
+  email: string;
+  uid: string;
+}
 
-export default function Home(props : Props) {
+export default function Home() {
   const {width, height} = Dimensions.get('screen');
+  const defaultUserInfo :UserInfo  = useSelector(state => state.updateUserInfo.userInfo );
   const dispatch = useDispatch();
+
+  
+  // TODO: 유저 세팅 
+  useEffect(() => {
+  }, []);
 
   const [tabIndex, setTabIndex] = useState(0);
   // FIXME: customTab
@@ -82,7 +93,7 @@ export default function Home(props : Props) {
       <View style={
         styles.componentView
       }>
-        {/* FIXME: component 작업 해야함. */}
+        {/* TODO:: component 작업 해야함. */}
         <TabView value={tabIndex}
           onChange={setTabIndex}>
           <TabView.Item style={styles.tabViewItem}>
