@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import {useChain} from '@react-spring/native';
+import {useChain, useSpring, animated} from '@react-spring/native';
 
 
 // TODO:
@@ -15,11 +15,17 @@ interface Props {
 }
 
 const DetailComponent = (props: Props) => {
-  const [gaugeWidth, setGaugeWidth] = useState<number>(0);
-
   const Gauge = () => {
+    const AnimatedView = animated(View);
+    const gaugeWidth = useSpring(() => ({
+      from: {width: 0},
+      to: {width: 100}
+    }));
+
+    // TODO: 100% 실제 width 길이로 환산해야함.
+    
     return <View style={{flex:1, backgroundColor: 'gray', marginHorizontal: 10, marginBottom:10}}>
-      <View style={{width: '50%', height: gaugeWidth, backgroundColor: 'green'}}></View>
+      <AnimatedView style={[gaugeWidth, { height: '100%', backgroundColor: 'green'}]}></AnimatedView>
     </View>;
   };
 
