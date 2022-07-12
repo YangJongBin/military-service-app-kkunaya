@@ -10,7 +10,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {TabView, ButtonGroup} from 'react-native-elements';
 
 // action
-import {getInit} from '../modules/init';
+import {selectUserInfoAction} from '../modules/selectUserInfo/actions';
 
 // components
 import SoldierThree from '../components/SoldierThree';
@@ -30,13 +30,19 @@ interface UserInfo {
 export default function Home() {
   const {width, height} = Dimensions.get('screen');
   const defaultUserInfo :UserInfo  = useSelector(state => state.updateUserInfo.userInfo );
+  const selectedUserInfo = useSelector(state => state.selectUserInfo.userInfo );
   const dispatch = useDispatch();
 
   
   // TODO: 유저 세팅 
   useEffect(() => {
+    dispatch(selectUserInfoAction.request({
+      uid: defaultUserInfo.uid,
+      tableNmae: 'soldier'
+    }));
   }, []);
-
+  
+  console.log('@@ selectedUserInfo==>', selectedUserInfo);
   const [tabIndex, setTabIndex] = useState(0);
   // FIXME: customTab
   const customTab = [
@@ -97,7 +103,11 @@ export default function Home() {
         <TabView value={tabIndex}
           onChange={setTabIndex}>
           <TabView.Item style={styles.tabViewItem}>
-            <DetailComponent/>
+            <DetailComponent 
+              nickName={selectedUserInfo.nickName}
+              startDate={selectedUserInfo.startDate}
+              endDate={selectedUserInfo.endDate}
+            />
           </TabView.Item>
           <TabView.Item style={styles.tabViewItem}>
             <ScheduleComponent/>

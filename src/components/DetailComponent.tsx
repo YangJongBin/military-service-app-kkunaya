@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {useChain, useSpring, animated} from '@react-spring/native';
 
@@ -6,9 +6,6 @@ import {useChain, useSpring, animated} from '@react-spring/native';
 // TODO:
 interface Props {
   nickName: string; // 닉네임
-  class: string; // 계급
-  step: string; // 호봉
-  regionCode: string; // 지역 코드 
   holidays: string[];
   startDate: string; // 입대일
   endDate: string; // 전역일
@@ -29,17 +26,22 @@ const DetailComponent = (props: Props) => {
     </View>;
   };
 
+  // TODO: 전역 정보 계산
+  useEffect(()=>{
+
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={[styles.card , {flex: 2}]}>
         <View style={{flexDirection: 'column', flex:1}}>
           <View style={{flex: 4, flexDirection: 'row', padding: 5}}>
             <View style={{flex:2, justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={styles.nickNameText}>양군인</Text>
+              <Text style={styles.nickNameText}>{props.nickName}</Text>
             </View>
             <View style={{flex:3, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-              <View><Text style={styles.startEndDateText}>입대일     2022.07.05</Text></View>
-              <View><Text style={styles.startEndDateText}>전역일     2022.07.06</Text></View>
+              <View><Text style={styles.startEndDateText}>입대일     {props.startDate}</Text></View>
+              <View><Text style={styles.startEndDateText}>전역일     {props.endDate}</Text></View>
             </View>
           </View>
           <View style={{flex: 3,backgroundColor: 'red'}}>

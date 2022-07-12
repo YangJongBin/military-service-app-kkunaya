@@ -35,8 +35,6 @@ export default function Navi() {
   useEffect(() => {
     // 로그인 유무
     auth().onAuthStateChanged((user: User)=>{
-      console.log('@@ user: ', user); // FIXME: delete
-      
       if(user){
         // 유저 정보 global state에 저장
         dispatch(updateUserInfoAction.request({
