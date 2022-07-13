@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {TabView, ButtonGroup} from 'react-native-elements';
+import days from 'dayjs';
 
 // action
 import {selectUserInfoAction} from '../modules/selectUserInfo/actions';
@@ -19,6 +20,7 @@ import DetailComponent from '../components/DetailComponent';
 import ScheduleComponent from '../components/ScheduleComponent';
 import CalendarComponent from '../components/CalendarComponent';
 import SettingComponent from '../components/SettingComponent';
+import { selectUserInfo } from '../modules/selectUserInfo/funcs';
 
 interface UserInfo {
   displayName : string;
@@ -77,8 +79,12 @@ export default function Home() {
         }>
           {/* Left */}
           <View style={[styles.publicContentSideView, {alignItems:'flex-start'}]}>
-            <View style={[styles.card, { width:70, height: 70, marginLeft:0 }]}></View>
-            <View style={[styles.card, { width:70, height: 70, marginLeft:0 }]}></View>
+            <View style={[styles.card, { width:70, height: 70, marginLeft:0 }]}>
+              <Text>{selectedUserInfo.class}</Text>
+            </View>
+            <View style={[styles.card, { width:70, height: 70, marginLeft:0 }]}>
+              <Text>{selectedUserInfo.step}</Text>
+            </View>
           </View>
           {/* Center */}
           <View style={
@@ -91,8 +97,12 @@ export default function Home() {
           </View>
           {/* Right */}
           <View style={[styles.publicContentSideView, {alignItems:'flex-end'}]}>
-            <View style={[styles.card, { width:70, height: 70, marginRight:0 }]}></View>
-            <View style={[styles.card, { width:70, height: 70, marginRight:0 }]}></View>
+            <View style={[styles.card, { width:70, height: 70, marginRight:0 }]}>
+              <Text>{selectedUserInfo.emotion}</Text>
+            </View>
+            <View style={[styles.card, { width:70, height: 70, marginRight:0 }]}>
+              <Text>{selectedUserInfo.regionCode}</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -156,6 +166,8 @@ const styles = StyleSheet.create({
   },
   card: { 
     backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 15,
     margin:5,
     shadowColor:'black',

@@ -11,4 +11,5 @@ export interface ResponsePayloadType {
     nickName: string;
     uid: string;
     class: string;
+    emotion: string;
 }
